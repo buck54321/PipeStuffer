@@ -10,7 +10,7 @@ PipeStuffer is a real-time console redirection program that uses named pipes for
 
 where :code:`[PIPE NAME]` is only the trailing part of the named pipe name, i.e. :code:`//./pipe/[PIPE NAME]`.
 
-And then handle communication the via the named pipe. 
+And then handle communication the with the named pipe. 
 
 Because PipeStuffer uses a console screen buffer for communication with the target program, output is not buffered. Because any console inherited from the parent is immediately dropped with :code:`FreeConsole()`, buggy behavior associated with Windows 10 consoles is avoided. 
 
