@@ -2,11 +2,13 @@
 PipeStuffer
 ===========
 
-PipeStuffer is a real-time console redirection program that uses named pipes for interprocess communication. PipeStuffer is based on `RTConsole <https://www.codeproject.com/Articles/16163/Real-Time-Console-Output-Redirection>`_, but is designed to work around some quirky behavior that exist with consoles in Windows 10. To use, simply put the compiled executable in a known place. If you wanted the real-time output from a program called `target.exe`, instead of calling :code:`CreateProcess(NULL, "path/to/target.exe --opt1 arg 1", ...)`, you would call create a named pipe, and pass the name to PipeStuffer like 
+PipeStuffer is a real-time console redirection program that uses named pipes for interprocess communication. PipeStuffer is based on `RTConsole <https://www.codeproject.com/Articles/16163/Real-Time-Console-Output-Redirection>`_, but is designed to work around some quirky behavior that exist with consoles in Windows 10. To use, simply put the compiled executable in a known place. If you wanted the real-time output from a program called `target.exe`, instead of calling :code:`CreateProcess(NULL, "path/to/target.exe --opt1 arg 1", ...)`, you would create a named pipe, and pass the name to PipeStuffer like 
 
 ::
 
 	CreateProcess("NULL, /path/to/pipe-stuffer.exe [PIPE NAME] path/to/target.exe --opt1 arg1", NULL, NULL, FALSE, ...)
+
+where :code:`[PIPE NAME]` is only the trailing part of the named pipe name, i.e. :code:`//./pipe/[PIPE NAME]`.
 
 And then handle communication the via the named pipe. 
 
