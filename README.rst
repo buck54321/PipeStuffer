@@ -2,7 +2,7 @@
 PipeStuffer
 ===========
 
-PipeStuffer is a real-time console redirection program that uses named pipes for interprocess communication. PipeStuffer is based on RTConsole `RTConsole <https://www.codeproject.com/Articles/16163/Real-Time-Console-Output-Redirection>`_, but is designed to work around some quirky behavior that exist with consoles in Windows 10. To use, simply put the compiled executable in a known place. If you wanted the real-time output from a program called `target.exe`, instead of calling `CreateProcess(NULL, "path/to/target.exe --opt1 arg 1", ...)`, you would call create a named pipe, and pass the name to PipeStuffer like 
+PipeStuffer is a real-time console redirection program that uses named pipes for interprocess communication. PipeStuffer is based on `RTConsole <https://www.codeproject.com/Articles/16163/Real-Time-Console-Output-Redirection>`_, but is designed to work around some quirky behavior that exist with consoles in Windows 10. To use, simply put the compiled executable in a known place. If you wanted the real-time output from a program called `target.exe`, instead of calling :code:`CreateProcess(NULL, "path/to/target.exe --opt1 arg 1", ...)`, you would call create a named pipe, and pass the name to PipeStuffer like 
 
 ::
 
@@ -10,7 +10,7 @@ PipeStuffer is a real-time console redirection program that uses named pipes for
 
 And then handle communication the via the named pipe. 
 
-Because PipeStuffer uses a console screen buffer for communication with the target program, output is not buffered. Because the any console inherited from the parent is immediately dropped with `FreeConsole()`, buggy behavior associated with Windows 10 consoles is avoided. 
+Because PipeStuffer uses a console screen buffer for communication with the target program, output is not buffered. Because any console inherited from the parent is immediately dropped with :code:`FreeConsole()`, buggy behavior associated with Windows 10 consoles is avoided. 
 
 
 
