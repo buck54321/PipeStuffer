@@ -231,12 +231,13 @@ int main( int argc, char* argv[] )
 	} while ( !exitNow && namedPipe != INVALID_HANDLE_VALUE );
 
 	// release subprocess handle
+
+	CloseHandle( hConsole );
+	CloseHandle( namedPipe );
+	TerminateProcess( pi.hProcess, 0 );
 	DWORD exitCode;
 	if ( !GetExitCodeProcess( pi.hProcess, &exitCode ) ) {
 		exitCode = -3;
 	}
-	CloseHandle( hConsole );
-	CloseHandle( namedPipe );
-	CloseHandle( pi.hProcess );
 	return exitCode;
 }
