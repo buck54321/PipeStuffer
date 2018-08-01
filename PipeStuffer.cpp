@@ -161,8 +161,14 @@ int main( int argc, char* argv[] )
 
 	do
 	{
-		if ( WaitForSingleObject( pi.hProcess, 0 ) != WAIT_TIMEOUT )
+		if( WaitForSingleObject( pi.hProcess, 0 ) != WAIT_TIMEOUT )
 			exitNow = true; // exit after this last iteration
+
+		if( GetNamedPipeInfo( namedPipe, 0, 0, 0, 0 ) == 0 )
+		{
+			//logFile << "Failure bro: " << GetLastError() << " - " << test << endl;
+			exitNow = true; // exit after this last iteration
+		}
 
 							// get screen buffer state
 		GetConsoleScreenBufferInfo( hConsole, &csbi );
@@ -179,7 +185,7 @@ int main( int argc, char* argv[] )
 
 			LPBYTE buffer = new BYTE[count];
 
-			SuspendThread( pi.hThread );
+			SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
 
 			ReadConsoleOutputCharacterA( hConsole, (LPSTR)buffer, count, lastpos, &count );
 
@@ -193,7 +199,7 @@ int main( int argc, char* argv[] )
 				lastpos = origin;
 			}
 
-			ResumeThread( pi.hThread );
+			SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_NORMAL);
 
 			LPSTR scan = (LPSTR)buffer;
 
